@@ -5,7 +5,7 @@ app = Flask(__name__)
  
 @app.route('/')
 def hello_whale():
-    test = os.environ['test']
+    test = os.environ
     return f"{test} hello there!"
  
 if __name__ == '__main__':
