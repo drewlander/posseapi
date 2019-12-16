@@ -3,6 +3,7 @@ from flask_httpauth import HTTPBasicAuth
 from datetime import datetime
 import os
 import pymysql
+import json
 app = Flask(__name__)
 auth = HTTPBasicAuth() 
 
@@ -55,9 +56,10 @@ def get_posse_quote():
 @app.route('/possequote', methods=['POST'])
 @auth.login_required
 def add_posse_quote():
-    quote =  request.json
+    quote =  json.loads(request.data)
     db = get_database_connection()
     cursor = db.cursor()
+    #import pdb; pdb.set_trace()
     sql = f"INSERT INTO possequotes(date_added, quote) \
             VALUES('{datetime.now().date().isoformat()}', '{quote['quote']}');"
     try:
