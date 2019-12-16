@@ -31,6 +31,27 @@ def hello_whale():
     db.close()
     return f"Version is {data}"
 
+@app.route('/possequote', methods=['GET'])
+def get_posse_quote():
+    db = get_database_connection()
+    cursor = db.cursor()
+    sql = " select * \
+    from possequotes order by RAND() limit 1"
+    data = {}
+    try:
+        # Execute the SQL command
+        cursor.execute(sql)
+        data = cursor.fetchone()
+        # Commit your changes in the database
+        db.commit()
+    except:
+        # Rollback in case there is any error
+        db.rollback()
+
+        # disconnect from server
+    db.close()
+    return jsonify(data)
+
 @app.route('/possequote', methods=['POST'])
 @auth.login_required
 def add_posse_quote():
