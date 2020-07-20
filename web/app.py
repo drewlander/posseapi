@@ -12,7 +12,7 @@ def get_database_connection():
     dbuser = os.environ['DB_USER']
     dbpass = os.environ['DB_PASS']
     dbname = os.environ['DB_NAME']
-    dbport = os.environ['DB_PORT']
+    dbport = int(os.environ['DB_PORT'])
     db = pymysql.connect(dbhost, dbuser, dbpass, dbname, port=dbport, autocommit=True)
     return db
 
