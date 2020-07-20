@@ -12,7 +12,8 @@ def get_database_connection():
     dbuser = os.environ['DB_USER']
     dbpass = os.environ['DB_PASS']
     dbname = os.environ['DB_NAME']
-    db = pymysql.connect(dbhost, dbuser, dbpass, dbname, autocommit=True)
+    dbport = os.environ['DB_PORT']
+    db = pymysql.connect(dbhost, dbuser, dbpass, dbname, port=dbport, autocommit=True)
     return db
 
 @auth.verify_password
@@ -54,7 +55,7 @@ def get_posse_quote():
     return jsonify(data)
 
 @app.route('/possequote', methods=['POST'])
-@auth.login_required
+#@auth.login_required
 def add_posse_quote():
     quote =  json.loads(request.data)
     db = get_database_connection()
